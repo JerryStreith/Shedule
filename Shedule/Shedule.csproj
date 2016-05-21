@@ -57,7 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Action.cs" />
     <Compile Include="Ring.cs" />
+    <Compile Include="Sсhedule.cs" />
+    <Compile Include="SсheduleItem.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

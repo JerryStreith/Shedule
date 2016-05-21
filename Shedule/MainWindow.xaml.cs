@@ -17,6 +17,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+/*
+ * 1. показывать какая сейчас текущая пара
+ */
 
 namespace Shedule
 {
@@ -30,38 +33,26 @@ namespace Shedule
         List<string> departments = new List<string>();
         List<string> groups = new List<string>();
         List<Canvas> days = new List<Canvas>();
-        List<List<ScheduleItem>> schedule = new List<List<ScheduleItem>>();
         List<TextBox> modayTxtBox = new List<TextBox>();
         List<TextBox> tuesdayTxtBox = new List<TextBox>();
         List<TextBox> wednesdayTxtBox = new List<TextBox>();
         List<TextBox> thursdayTxtBox = new List<TextBox>();
         List<TextBox> fridayTxtBox = new List<TextBox>();
 
+        public List<SсheduleItem> schedule;
+        public List<Ring> rings;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            ServicePointManager.Expect100Continue = false;
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    var values = new NameValueCollection();
-                    values["group"] = "СП-12-1д";
-                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_rings.php", values);
-                    var responseString = Encoding.UTF8.GetString(response);
-
-                    List<Ring> myDeserializedObjList = (List<Ring>)Newtonsoft.Json.JsonConvert.DeserializeObject(responseString, typeof(List<Ring>));
-
-                    MessageBox.Show(responseString);
-                }
-            }
-            catch (Exception E)
-            {
-                MessageBox.Show(E.Message);
-            }
-
             currentDate = DateTime.Now;
+
+            //test, schedule doen't work
+            //string codeGroup = "СП-12-1д";
+            //schedule = Action.GetSchedule(codeGroup);
+
+            rings = Action.GetListRings();
 
             modayTxtBox.Add(msh1);
             modayTxtBox.Add(msh2);
