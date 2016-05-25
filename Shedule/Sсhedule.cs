@@ -5,21 +5,21 @@ namespace Shedule
     public class Sсhedule
     {
         [JsonProperty("Понеділок")]
-        public Day Monday;
+        public Day[] Monday;
 
         [JsonProperty("Вівторок")]
-        public Day Tuesday;
+        public Day[] Tuesday;
 
         [JsonProperty("Середа")]
-        public Day Wednesday;
+        public Day[] Wednesday;
 
         [JsonProperty("Четвер")]
-        public Day Thursday;
+        public Day[] Thursday;
 
         [JsonProperty("П'ятниця")]
-        public Day Friday;
+        public Day[] Friday;
 
         [JsonProperty("Субота")]
-        public Day Saturday;
+        public Day[] Saturday;
     }
 }

@@ -29,26 +29,19 @@ namespace Shedule
         public MainWindow()
         {
             InitializeComponent();
-
             currentDate = DateTime.Now;
             faculty = Action.GetFaculty();
             specialties = Action.GetSpecialties();
             groups = Action.GetGroups();
             FillFacultyComboBox();
-            
-            mondayStack.Children.Add(GetFormattedTextBlock());
-            mondayStack.Children.Add(GetFormattedTextBlock());
-            mondayStack.Children.Add(GetFormattedTextBlock());
-            mondayStack.Children.Add(GetFormattedTextBlock());
-            thursdayStack.Children.Add(GetFormattedTextBlock());
-            thursdayStack.Children.Add(GetFormattedTextBlock());
 
+            
 
             DislayCurrentDay();
             DisplayCurrentPair();
         }
 
-        StackPanel GetFormattedTextBlock()
+        StackPanel GetFormattedTextBlock(string boldStr,string info)
         {
             StackPanel stackPanel = new StackPanel();
             stackPanel.Orientation = Orientation.Horizontal;
@@ -63,9 +56,9 @@ namespace Shedule
 
             TextBlock textBlock = new TextBlock();
             textBlock.Foreground = Brushes.White;
-            textBlock.FontSize = 14;
-            textBlock.Inlines.Add(new Bold(new Run("Менеджмент проектів ПЗ\n")));
-            textBlock.Inlines.Add("nст.викл. Новікова О.С.\nауд.40 лекція");
+            textBlock.FontSize = 13;
+            textBlock.Inlines.Add(new Bold(new Run(boldStr)));
+            textBlock.Inlines.Add(info);
 
 
             margin = textBlock.Margin;
@@ -241,8 +234,181 @@ namespace Shedule
             if (groupComboBox.SelectedIndex != -1)
             {
                 selectedGroup = groupComboBox.SelectedValue.ToString();
+                int index = groups.FindIndex(item => item.title == selectedGroup);
+                string id = groups[index].id;
+
+                schedule = Action.GetSchedule(id);
+                ClearSchedule();
+                ShowSchedule();
             }
         }
         #endregion
+
+        public void ClearSchedule()
+        {
+            if(mondayStack.Children.Count!=0)
+            {
+                mondayStack.Children.Clear();
+            }
+            if(tuesdayStack.Children.Count!=0)
+            {
+                tuesdayStack.Children.Clear();
+            }
+            if(wednesdayStack.Children.Count!=0)
+            {
+                wednesdayStack.Children.Clear();
+            }
+            if (thursdayStack.Children.Count != 0)
+            {
+                thursdayStack.Children.Clear();
+            }
+            if(fridayStack.Children.Count!=0)
+            {
+                fridayStack.Children.Clear();
+            }
+        }
+
+        public void ShowSchedule()
+        {
+            foreach(var item in schedule.Monday)
+            {
+                if (item.classroom != null)
+                {
+                    string subject=item.subject_title;
+                    string[] split = item.subject_title.Split(new Char[] { ' ' });
+                    if(split.Length>4)
+                    {
+                        subject = split[0] +" "+ split[1] +" "+ split[2] +" "+"\n";
+                        for(int i=3;i<split.Length;i++)
+                        {
+                            subject += split[i] +" ";
+                        }
+                    }
+                    string boldStr = item.num + ". " + subject + "\n";
+                    string inform = "";
+                    if (item.t1_chair != null)
+                    {
+                        inform = item.t1_chair + item.t1_last_name + item.t1_first_name[0] + "." + item.t1_middle_name[0] + ".";
+                    }
+                    if (item.t2_chair != null)
+                    {
+                        inform += "\n"+item.t2_chair + item.t2_last_name + item.t2_first_name[0] + "." + item.t2_middle_name[0] + ".";
+                    }
+                    inform += "\n" + item.classroom + item.type;
+                    mondayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
+                }
+            }
+            foreach (var item in schedule.Tuesday)
+            {
+                if (item.classroom != null)
+                {
+                    string subject = item.subject_title;
+                    string[] split = item.subject_title.Split(new Char[] { ' ' });
+                    if (split.Length > 4)
+                    {
+                        subject = split[0] + " " + split[1] + " " + split[2] + " " + "\n";
+                        for (int i = 3; i < split.Length; i++)
+                        {
+                            subject += split[i] + " ";
+                        }
+                    }
+                    string boldStr = item.num + ". " + subject + "\n";
+                    string inform = "";
+                    if (item.t1_chair != null)
+                    {
+                        inform = item.t1_chair + item.t1_last_name + item.t1_first_name[0] + "." + item.t1_middle_name[0] + ".";
+                    }
+                    if (item.t2_chair != null)
+                    {
+                        inform += "\n" + item.t2_chair + item.t2_last_name + item.t2_first_name[0] + "." + item.t2_middle_name[0] + ".";
+                    }
+                    inform += "\n" + item.classroom + item.type;
+                    tuesdayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
+                }
+            }
+            foreach (var item in schedule.Wednesday)
+            {
+                if (item.classroom != null)
+                {
+                    string subject = item.subject_title;
+                    string[] split = item.subject_title.Split(new Char[] { ' ' });
+                    if (split.Length > 4)
+                    {
+                        subject = split[0] + " " + split[1] + " " + split[2] + " " + "\n";
+                        for (int i = 3; i < split.Length; i++)
+                        {
+                            subject += split[i] + " ";
+                        }
+                    }
+                    string boldStr = item.num + ". " + subject + "\n";
+                    string inform = "";
+                    if (item.t1_chair != null)
+                    {
+                        inform = item.t1_chair + item.t1_last_name + item.t1_first_name[0] + "." + item.t1_middle_name[0] + ".";
+                    }
+                    if (item.t2_chair != null)
+                    {
+                        inform += "\n" + item.t2_chair + item.t2_last_name + item.t2_first_name[0] + "." + item.t2_middle_name[0] + ".";
+                    }
+                    inform += "\n" + item.classroom + item.type;
+                    wednesdayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
+                }
+            }
+            foreach (var item in schedule.Thursday)
+            {
+                if (item.classroom != null)
+                {
+                    string subject = item.subject_title;
+                    string[] split = item.subject_title.Split(new Char[] { ' ' });
+                    if (split.Length > 4)
+                    {
+                        subject = split[0] + " " + split[1] + " " + split[2] + " " + "\n";
+                        for (int i = 3; i < split.Length; i++)
+                        {
+                            subject += split[i] + " ";
+                        }
+                    }
+                    string boldStr = item.num + ". " + subject + "\n";
+                    string inform = "";
+                    if (item.t1_chair != null)
+                    {
+                        inform = item.t1_chair + item.t1_last_name + item.t1_first_name[0] + "." + item.t1_middle_name[0] + ".";
+                    }
+                    if (item.t2_chair != null)
+                    {
+                        inform += "\n" + item.t2_chair + item.t2_last_name + item.t2_first_name[0] + "." + item.t2_middle_name[0] + ".";
+                    }
+                    inform += "\n" + item.classroom + item.type;
+                    thursdayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
+                }
+            } foreach (var item in schedule.Friday)
+            {
+                if (item.classroom != null)
+                {
+                    string subject = item.subject_title;
+                    string[] split = item.subject_title.Split(new Char[] { ' ' });
+                    if (split.Length > 4)
+                    {
+                        subject = split[0] + " " + split[1] + " " + split[2] + " " + "\n";
+                        for (int i = 3; i < split.Length; i++)
+                        {
+                            subject += split[i] + " ";
+                        }
+                    }
+                    string boldStr = item.num + ". " + subject + "\n";
+                    string inform = "";
+                    if (item.t1_chair != null)
+                    {
+                        inform = item.t1_chair + item.t1_last_name + item.t1_first_name[0] + "." + item.t1_middle_name[0] + ".";
+                    }
+                    if (item.t2_chair != null)
+                    {
+                        inform += "\n" + item.t2_chair + item.t2_last_name + item.t2_first_name[0] + "." + item.t2_middle_name[0] + ".";
+                    }
+                    inform += "\n" + item.classroom + item.type;
+                    fridayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
+                }
+            }
+        }
     }
 }

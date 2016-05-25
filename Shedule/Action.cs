@@ -32,17 +32,17 @@ namespace Shedule
         //    return responseList;
         //}
 
-        public static Sсhedule GetSchedule(string group)
+        public static Sсhedule GetSchedule(string id)
         {
-            Sсhedule sсhedule = null;
+           Sсhedule sсhedule = null;
             ServicePointManager.Expect100Continue = false;
             try
             {
                 using (var client = new WebClient())
                 {
                     var values = new NameValueCollection();
-                    values["group"] = group;
-                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_schedule.php", values);
+                    values.Add("group id",id);
+                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_schedule.php?group_id="+id, values);
                     var responseString = Encoding.UTF8.GetString(response);
 
                     sсhedule = JsonConvert.DeserializeObject<Sсhedule>(responseString);
