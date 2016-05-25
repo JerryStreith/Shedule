@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Shedule
 {
@@ -41,11 +42,24 @@ namespace Shedule
                 using (var client = new WebClient())
                 {
                     var values = new NameValueCollection();
-                    values.Add("group id",id);
-                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_schedule.php?group_id="+id, values);
+                    //values.Add("group id", id);
+                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_schedule.php?group_id=" + id, values);
                     var responseString = Encoding.UTF8.GetString(response);
 
                     sсhedule = JsonConvert.DeserializeObject<Sсhedule>(responseString);
+                    try
+                    {
+                        string path = @"c:\temp\MyTest.txt";
+                        if (!File.Exists(path))
+                        {
+                            File.Create(path);        
+                        }
+                        File.WriteAllText(path, responseString);
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
             catch

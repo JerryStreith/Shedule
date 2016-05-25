@@ -5,10 +5,11 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
-
+using Newtonsoft.Json;
+using System.IO;
 /*
- * 1. показывать какая сейчас текущая пара
- */
+* 1. показывать какая сейчас текущая пара
+*/
 
 namespace Shedule
 {
@@ -25,6 +26,7 @@ namespace Shedule
         public List<Ring> rings;
 
         public string selectedGroup;
+        string path = @"c:\temp\MyTest.txt";
 
         public MainWindow()
         {
@@ -39,6 +41,20 @@ namespace Shedule
 
             DislayCurrentDay();
             DisplayCurrentPair();
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    string file = File.ReadAllText(path);
+                    Sсhedule sch = JsonConvert.DeserializeObject<Sсhedule>(file);
+                    ShowSchedule(sch);
+                }
+                catch 
+                {
+
+                }
+            }
         }
 
         StackPanel GetFormattedTextBlock(string boldStr,string info)
@@ -239,7 +255,7 @@ namespace Shedule
 
                 schedule = Action.GetSchedule(id);
                 ClearSchedule();
-                ShowSchedule();
+                ShowSchedule(schedule);
             }
         }
         #endregion
@@ -268,9 +284,9 @@ namespace Shedule
             }
         }
 
-        public void ShowSchedule()
+        public void ShowSchedule(Sсhedule sch)
         {
-            foreach(var item in schedule.Monday)
+            foreach(var item in sch.Monday)
             {
                 if (item.classroom != null)
                 {
@@ -298,7 +314,7 @@ namespace Shedule
                     mondayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
                 }
             }
-            foreach (var item in schedule.Tuesday)
+            foreach (var item in sch.Tuesday)
             {
                 if (item.classroom != null)
                 {
@@ -326,7 +342,7 @@ namespace Shedule
                     tuesdayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
                 }
             }
-            foreach (var item in schedule.Wednesday)
+            foreach (var item in sch.Wednesday)
             {
                 if (item.classroom != null)
                 {
@@ -354,7 +370,7 @@ namespace Shedule
                     wednesdayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
                 }
             }
-            foreach (var item in schedule.Thursday)
+            foreach (var item in sch.Thursday)
             {
                 if (item.classroom != null)
                 {
@@ -381,7 +397,7 @@ namespace Shedule
                     inform += "\n" + item.classroom + item.type;
                     thursdayStack.Children.Add(GetFormattedTextBlock(boldStr, inform));
                 }
-            } foreach (var item in schedule.Friday)
+            } foreach (var item in sch.Friday)
             {
                 if (item.classroom != null)
                 {
