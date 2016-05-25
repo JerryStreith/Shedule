@@ -29,9 +29,6 @@ namespace Shedule
     public partial class MainWindow : Window
     {
         DateTime currentDate;
-        List<string> faculties = new List<string>();
-        List<string> departments = new List<string>();
-        List<string> groups = new List<string>();
         List<Canvas> days = new List<Canvas>();
         List<TextBox> modayTxtBox = new List<TextBox>();
         List<TextBox> tuesdayTxtBox = new List<TextBox>();
@@ -40,7 +37,12 @@ namespace Shedule
         List<TextBox> fridayTxtBox = new List<TextBox>();
 
         public Sсhedule schedule;
+        public List<Faculty> faculty;
+        public List<Specialti> specialties;
+        public List<Group> groups;
         public List<Ring> rings;
+
+        public string selectedGroup;
 
         public MainWindow()
         {
@@ -48,11 +50,17 @@ namespace Shedule
 
             currentDate = DateTime.Now;
 
-            //test, schedule doen't work
+           //test, schedule doen't work
             //string codeGroup = "СП-12-1д";
             //schedule = Action.GetSchedule(codeGroup);
 
             //rings = Action.GetListRings();
+
+            faculty = Action.GetFaculty();
+            FillFacultyComboBox();
+            specialties = Action.GetSpecialties();
+            groups = Action.GetGroups();
+
 
             modayTxtBox.Add(msh1);
             modayTxtBox.Add(msh2);
@@ -94,11 +102,6 @@ namespace Shedule
             DislayCurrentDay();
         }
 
-        public void GenerateSchedules()
-        {
-
-        }
-
         public void DislayCurrentDay()
         {
             SolidColorBrush brush, brushNextDay;
@@ -136,11 +139,50 @@ namespace Shedule
             }
         }
 
+        #region Filling ComboBoxes Faculty - Speciality(Faculty) - Groups(Speciality)
+        public void FillFacultyComboBox()
+        {
+            foreach(var item in faculty)
+            {
+                facultyComboBox.Items.Add(item.title);
+            }
+        }
+
+        public void FillSpecialtiesComboBox(List<Specialti> specialtiesForCertainFaculty)
+        {
+            if(DepartmentComboBox.Items.Count!=0)
+            {
+                DepartmentComboBox.Items.Clear();
+            }
+            foreach(var item in specialtiesForCertainFaculty)
+            {
+                DepartmentComboBox.Items.Add(item.title);
+            }
+        }
+
+        public void FillGroupsComboBox(List<Group> groupsForCertainSpecialties)
+        {
+            if(groupComboBox.Items.Count!=0)
+            {
+                groupComboBox.Items.Clear();
+            }
+            foreach(var item in groupsForCertainSpecialties)
+            {
+                groupComboBox.Items.Add(item.title);
+            }
+        }
+        #endregion
+
+        #region ComboBox SelectionChanged Events (FacultyCB, DepartmentCB, GroupsCB)
         private void facultyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (facultyComboBox.SelectedIndex != -1)
             {
-                //выбираем факультет
+                int index = faculty.FindIndex(item => item.title == facultyComboBox.SelectedValue.ToString());
+                string facultyId = faculty[index].id;
+
+                List<Specialti> specialtiesForThisFaculty = specialties.FindAll(item => item.faculty == facultyId);
+                FillSpecialtiesComboBox(specialtiesForThisFaculty);
             }
         }
 
@@ -148,7 +190,11 @@ namespace Shedule
         {
             if (DepartmentComboBox.SelectedIndex != -1)
             {
-                //по выбраному факультеты выбираем группу
+                int index = specialties.FindIndex(item => item.title == DepartmentComboBox.SelectedValue.ToString());
+                string specialtiID = specialties[index].id;
+
+                List<Group> groupsForThisSpeciality = groups.FindAll(item => item.specialty == specialtiID);
+                FillGroupsComboBox(groupsForThisSpeciality);
             }
         }
 
@@ -156,9 +202,9 @@ namespace Shedule
         {
             if (groupComboBox.SelectedIndex != -1)
             {
-                //по выбранной группе получаем расписание на всю неделю
+                selectedGroup = groupComboBox.SelectedValue.ToString();
             }
         }
-
+        #endregion
     }
 }

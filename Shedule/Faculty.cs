@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 namespace Shedule
 {
-    class Faculty
+    public class Faculty
     {
         [JsonProperty("id")]
         public string id { get; set; }
