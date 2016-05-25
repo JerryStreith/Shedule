@@ -54,42 +54,42 @@ namespace Shedule
 
             //rings = Action.GetListRings();
 
-            modayTxtBox.Add(msh1);
-            modayTxtBox.Add(msh2);
-            modayTxtBox.Add(msh3);
-            modayTxtBox.Add(msh4);
-            modayTxtBox.Add(msh5);
+            //modayTxtBox.Add(msh1);
+            //modayTxtBox.Add(msh2);
+            //modayTxtBox.Add(msh3);
+            //modayTxtBox.Add(msh4);
+            //modayTxtBox.Add(msh5);
 
-            tuesdayTxtBox.Add(tush1);
-            tuesdayTxtBox.Add(tush2);
-            tuesdayTxtBox.Add(tush3);
-            tuesdayTxtBox.Add(tush4);
-            tuesdayTxtBox.Add(tush5);
+            //tuesdayTxtBox.Add(tush1);
+            //tuesdayTxtBox.Add(tush2);
+            //tuesdayTxtBox.Add(tush3);
+            //tuesdayTxtBox.Add(tush4);
+            //tuesdayTxtBox.Add(tush5);
 
-            wednesdayTxtBox.Add(wsh1);
-            wednesdayTxtBox.Add(wsh2);
-            wednesdayTxtBox.Add(wsh3);
-            wednesdayTxtBox.Add(wsh4);
-            wednesdayTxtBox.Add(wsh5);
+            //wednesdayTxtBox.Add(wsh1);
+            //wednesdayTxtBox.Add(wsh2);
+            //wednesdayTxtBox.Add(wsh3);
+            //wednesdayTxtBox.Add(wsh4);
+            //wednesdayTxtBox.Add(wsh5);
 
-            thursdayTxtBox.Add(thsh1);
-            thursdayTxtBox.Add(thsh2);
-            thursdayTxtBox.Add(thsh3);
-            thursdayTxtBox.Add(thsh4);
-            thursdayTxtBox.Add(thsh5);
+            //thursdayTxtBox.Add(thsh1);
+            //thursdayTxtBox.Add(thsh2);
+            //thursdayTxtBox.Add(thsh3);
+            //thursdayTxtBox.Add(thsh4);
+            //thursdayTxtBox.Add(thsh5);
 
-            fridayTxtBox.Add(frsh1);
-            fridayTxtBox.Add(frsh2);
-            fridayTxtBox.Add(frsh3);
-            fridayTxtBox.Add(frsh4);
-            fridayTxtBox.Add(frsh5);
+            //fridayTxtBox.Add(frsh1);
+            //fridayTxtBox.Add(frsh2);
+            //fridayTxtBox.Add(frsh3);
+            //fridayTxtBox.Add(frsh4);
+            //fridayTxtBox.Add(frsh5);
 
-            days.Add(mondayCanvas);
-            days.Add(tuesdayCanvas);
-            days.Add(wednesdayCanvas);
-            days.Add(thursdayCanvas);
-            days.Add(fridayCanvas);
-            days.Add(sundayCanvas);
+            //days.Add(mondayCanvas);
+            //days.Add(tuesdayCanvas);
+            //days.Add(wednesdayCanvas);
+            //days.Add(thursdayCanvas);
+            //days.Add(fridayCanvas);
+            //days.Add(sundayCanvas);
 
             DislayCurrentDay();
         }
