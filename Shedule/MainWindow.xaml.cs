@@ -39,7 +39,7 @@ namespace Shedule
         List<TextBox> thursdayTxtBox = new List<TextBox>();
         List<TextBox> fridayTxtBox = new List<TextBox>();
 
-        public List<SсheduleItem> schedule;
+        public Sсhedule schedule;
         public List<Ring> rings;
 
         public MainWindow()
@@ -52,7 +52,7 @@ namespace Shedule
             //string codeGroup = "СП-12-1д";
             //schedule = Action.GetSchedule(codeGroup);
 
-            rings = Action.GetListRings();
+            //rings = Action.GetListRings();
 
             modayTxtBox.Add(msh1);
             modayTxtBox.Add(msh2);
