@@ -18,13 +18,6 @@ namespace Shedule
     public partial class MainWindow : Window
     {
         DateTime currentDate;
-        List<Canvas> days = new List<Canvas>();
-        List<TextBox> modayTxtBox = new List<TextBox>();
-        List<TextBox> tuesdayTxtBox = new List<TextBox>();
-        List<TextBox> wednesdayTxtBox = new List<TextBox>();
-        List<TextBox> thursdayTxtBox = new List<TextBox>();
-        List<TextBox> fridayTxtBox = new List<TextBox>();
-
         public Sсhedule schedule;
         public List<Faculty> faculty;
         public List<Specialti> specialties;
@@ -38,6 +31,10 @@ namespace Shedule
             InitializeComponent();
 
             currentDate = DateTime.Now;
+            faculty = Action.GetFaculty();
+            specialties = Action.GetSpecialties();
+            groups = Action.GetGroups();
+            FillFacultyComboBox();
             
             mondayStack.Children.Add(GetFormattedTextBlock());
             mondayStack.Children.Add(GetFormattedTextBlock());
