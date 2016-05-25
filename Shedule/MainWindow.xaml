@@ -142,6 +142,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock TextWrapping="Wrap" Text="Понеділок" Foreground="White" FontSize="30" FontFamily="Century Gothic" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <StackPanel Name="mondayStack" Grid.Row="1"/>
 
                 </Grid>
 
@@ -151,6 +152,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock TextWrapping="Wrap" Text="Вівторок" Foreground="White" FontSize="30" FontFamily="Century Gothic" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <StackPanel Name="tuesdayStack" Grid.Row="1"/>
                 </Grid>
 
                 <Grid x:Name="wednesdayCanvas" Background="#FF607D8B" Grid.Row="0" Grid.Column="3" Margin="10">
@@ -159,6 +161,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock TextWrapping="Wrap" Text="Середа" Foreground="White" FontSize="30" FontFamily="Century Gothic" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <StackPanel Name="wednesdayStack" Grid.Row="1"/>
                 </Grid>
 
                 <Grid x:Name="thursdayCanvas" Background="#FF607D8B" Grid.Row="1" Grid.Column="1" Margin="10">
@@ -167,6 +170,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock TextWrapping="Wrap" Text="Четвер" Foreground="White" FontSize="30" FontFamily="Century Gothic" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <StackPanel Name="thursdayStack" Grid.Row="1"/>
                 </Grid>
 
                 <Grid x:Name="fridayCanvas" Background="#FF607D8B" Grid.Row="1" Grid.Column="2" Margin="10">
@@ -175,6 +179,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock TextWrapping="Wrap" Text="П'ятниця" Foreground="White" FontSize="30" FontFamily="Century Gothic" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <StackPanel Name="fridayStack" Grid.Row="1"/>
                 </Grid>
 
                 <Grid x:Name="sundayCanvas" Background="#FF607D8B" Grid.Row="1" Grid.Column="3" Margin="10">
@@ -183,6 +188,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock TextWrapping="Wrap" Text="Cубота" Foreground="White" FontSize="30" FontFamily="Century Gothic" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <StackPanel Name="saturdayStack" Grid.Row="1"/>
                 </Grid>
 
             </Grid>

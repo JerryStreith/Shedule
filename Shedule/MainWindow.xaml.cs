@@ -1,20 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 /*
@@ -29,9 +18,6 @@ namespace Shedule
     public partial class MainWindow : Window
     {
         DateTime currentDate;
-        List<string> faculties = new List<string>();
-        List<string> departments = new List<string>();
-        List<string> groups = new List<string>();
         List<Canvas> days = new List<Canvas>();
         List<TextBox> modayTxtBox = new List<TextBox>();
         List<TextBox> tuesdayTxtBox = new List<TextBox>();
@@ -40,107 +26,138 @@ namespace Shedule
         List<TextBox> fridayTxtBox = new List<TextBox>();
 
         public Sсhedule schedule;
+        public List<Faculty> faculty;
+        public List<Specialti> specialties;
+        public List<Group> groups;
         public List<Ring> rings;
+
+        public string selectedGroup;
 
         public MainWindow()
         {
             InitializeComponent();
 
             currentDate = DateTime.Now;
+            
+            mondayStack.Children.Add(GetFormattedTextBlock());
+            mondayStack.Children.Add(GetFormattedTextBlock());
+            mondayStack.Children.Add(GetFormattedTextBlock());
+            mondayStack.Children.Add(GetFormattedTextBlock());
+            thursdayStack.Children.Add(GetFormattedTextBlock());
+            thursdayStack.Children.Add(GetFormattedTextBlock());
 
-            //test, schedule doen't work
-            //string codeGroup = "СП-12-1д";
-            //schedule = Action.GetSchedule(codeGroup);
-
-            //rings = Action.GetListRings();
-
-            //modayTxtBox.Add(msh1);
-            //modayTxtBox.Add(msh2);
-            //modayTxtBox.Add(msh3);
-            //modayTxtBox.Add(msh4);
-            //modayTxtBox.Add(msh5);
-
-            //tuesdayTxtBox.Add(tush1);
-            //tuesdayTxtBox.Add(tush2);
-            //tuesdayTxtBox.Add(tush3);
-            //tuesdayTxtBox.Add(tush4);
-            //tuesdayTxtBox.Add(tush5);
-
-            //wednesdayTxtBox.Add(wsh1);
-            //wednesdayTxtBox.Add(wsh2);
-            //wednesdayTxtBox.Add(wsh3);
-            //wednesdayTxtBox.Add(wsh4);
-            //wednesdayTxtBox.Add(wsh5);
-
-            //thursdayTxtBox.Add(thsh1);
-            //thursdayTxtBox.Add(thsh2);
-            //thursdayTxtBox.Add(thsh3);
-            //thursdayTxtBox.Add(thsh4);
-            //thursdayTxtBox.Add(thsh5);
-
-            //fridayTxtBox.Add(frsh1);
-            //fridayTxtBox.Add(frsh2);
-            //fridayTxtBox.Add(frsh3);
-            //fridayTxtBox.Add(frsh4);
-            //fridayTxtBox.Add(frsh5);
-
-            //days.Add(mondayCanvas);
-            //days.Add(tuesdayCanvas);
-            //days.Add(wednesdayCanvas);
-            //days.Add(thursdayCanvas);
-            //days.Add(fridayCanvas);
-            //days.Add(sundayCanvas);
 
             DislayCurrentDay();
         }
 
-        public void GenerateSchedules()
+        StackPanel GetFormattedTextBlock()
         {
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Orientation = Orientation.Horizontal;
+            Rectangle rectangle = new Rectangle();
+            rectangle.Stroke = new SolidColorBrush(Color.FromRgb(238, 110, 115));
+            rectangle.Fill = new SolidColorBrush(Color.FromRgb(238, 110, 115));
+            rectangle.Width = 5;
 
+            Thickness margin = rectangle.Margin;
+            margin = new Thickness(10, 5, 0, 5);
+            rectangle.Margin = margin;
+
+            TextBlock textBlock = new TextBlock();
+            textBlock.Foreground = Brushes.White;
+            textBlock.FontSize = 14;
+            textBlock.Inlines.Add(new Bold(new Run("Менеджмент проектів ПЗ\n")));
+            textBlock.Inlines.Add("nст.викл. Новікова О.С.\nауд.40 лекція");
+
+
+            margin = textBlock.Margin;
+            margin = new Thickness(10, 5, 0, 5);
+            textBlock.Margin = margin;
+
+            stackPanel.Children.Add(rectangle);
+            stackPanel.Children.Add(textBlock);
+            return stackPanel;
         }
 
         public void DislayCurrentDay()
         {
-            SolidColorBrush brush, brushNextDay;
             string dayOfWeek = currentDate.DayOfWeek.ToString();
             switch (dayOfWeek)
             {
                 case "Monday":
-                    brush = new SolidColorBrush(Color.FromRgb(238, 110, 115));
-                    mondayCanvas.Background = brush;
+                    BrushDays(mondayCanvas, tuesdayCanvas);
                     break;
                 case "Tuesday":
-                    brush = new SolidColorBrush(Color.FromRgb(238, 110, 115));
-                    tuesdayCanvas.Background = brush;
+                    BrushDays(tuesdayCanvas, wednesdayCanvas);
                     break;
                 case "Wednesday":
-                    brush = new SolidColorBrush(Color.FromRgb(238, 110, 115));
-                    wednesdayCanvas.Background = brush;
-                    brushNextDay = new SolidColorBrush(Color.FromRgb(115, 238, 110));
-                    thursdayCanvas.Background = brushNextDay;
+                    BrushDays(wednesdayCanvas, thursdayCanvas);
                     break;
                 case "Thursday":
-                    brush = new SolidColorBrush(Color.FromRgb(238, 110, 115));
-                    thursdayCanvas.Background = brush;
-                    brushNextDay = new SolidColorBrush(Color.FromRgb(115, 238, 110));
-                    fridayCanvas.Background = brushNextDay;
+                    BrushDays(thursdayCanvas, fridayCanvas);
                     break;
                 case "Friday":
-                    brush = new SolidColorBrush(Color.FromRgb(238, 110, 115));
-                    fridayCanvas.Background = brush;
+                    BrushDays(fridayCanvas, sundayCanvas);
                     break;
                 case "Sunday":
-                    brush = new SolidColorBrush(Color.FromRgb(238, 110, 115));
-                    fridayCanvas.Background = brush;
+                    BrushDays(sundayCanvas, mondayCanvas);
                     break;
             }
         }
 
+        void BrushDays(Grid thisDay, Grid nextDay)
+        {
+            SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(115, 238, 110));
+            SolidColorBrush brushNextDay = new SolidColorBrush(Color.FromRgb(238, 110, 115));
+
+            thisDay.Background = brush;
+            nextDay.Background = brushNextDay;
+        }
+
+        #region Filling ComboBoxes Faculty - Speciality(Faculty) - Groups(Speciality)
+        public void FillFacultyComboBox()
+        {
+            foreach(var item in faculty)
+            {
+                facultyComboBox.Items.Add(item.title);
+            }
+        }
+
+        public void FillSpecialtiesComboBox(List<Specialti> specialtiesForCertainFaculty)
+        {
+            if(DepartmentComboBox.Items.Count!=0)
+            {
+                DepartmentComboBox.Items.Clear();
+            }
+            foreach(var item in specialtiesForCertainFaculty)
+            {
+                DepartmentComboBox.Items.Add(item.title);
+            }
+        }
+
+        public void FillGroupsComboBox(List<Group> groupsForCertainSpecialties)
+        {
+            if(groupComboBox.Items.Count!=0)
+            {
+                groupComboBox.Items.Clear();
+            }
+            foreach(var item in groupsForCertainSpecialties)
+            {
+                groupComboBox.Items.Add(item.title);
+            }
+        }
+        #endregion
+
+        #region ComboBox SelectionChanged Events (FacultyCB, DepartmentCB, GroupsCB)
         private void facultyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (facultyComboBox.SelectedIndex != -1)
             {
-                //выбираем факультет
+                int index = faculty.FindIndex(item => item.title == facultyComboBox.SelectedValue.ToString());
+                string facultyId = faculty[index].id;
+
+                List<Specialti> specialtiesForThisFaculty = specialties.FindAll(item => item.faculty == facultyId);
+                FillSpecialtiesComboBox(specialtiesForThisFaculty);
             }
         }
 
@@ -148,7 +165,11 @@ namespace Shedule
         {
             if (DepartmentComboBox.SelectedIndex != -1)
             {
-                //по выбраному факультеты выбираем группу
+                int index = specialties.FindIndex(item => item.title == DepartmentComboBox.SelectedValue.ToString());
+                string specialtiID = specialties[index].id;
+
+                List<Group> groupsForThisSpeciality = groups.FindAll(item => item.specialty == specialtiID);
+                FillGroupsComboBox(groupsForThisSpeciality);
             }
         }
 
@@ -156,9 +177,9 @@ namespace Shedule
         {
             if (groupComboBox.SelectedIndex != -1)
             {
-                //по выбранной группе получаем расписание на всю неделю
+                selectedGroup = groupComboBox.SelectedValue.ToString();
             }
         }
-
+        #endregion
     }
 }

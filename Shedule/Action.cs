@@ -55,27 +55,70 @@ namespace Shedule
             return sсhedule;
         }
 
-        public static Sсhedule GetFaculty(string group)
+        public static List<Faculty> GetFaculty()
         {
-            Sсhedule sсhedule = null;
+            List<Faculty> faculty=new List<Faculty>();
             ServicePointManager.Expect100Continue = false;
             try
             {
                 using (var client = new WebClient())
                 {
                     var values = new NameValueCollection();
-                    values["group"] = group;
-                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_schedule.php", values);
+                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_faculties.php",values);
                     var responseString = Encoding.UTF8.GetString(response);
 
-                    sсhedule = JsonConvert.DeserializeObject<Sсhedule>(responseString);
+                    faculty = JsonConvert.DeserializeObject<List<Faculty>>(responseString);
                 }
             }
             catch
             {
 
             }
-            return sсhedule;
+            return faculty;
+        }
+
+        public static List<Specialti> GetSpecialties()
+        {
+            List<Specialti> specialties = new List<Specialti>();
+            ServicePointManager.Expect100Continue = false;
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    var values = new NameValueCollection();
+                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_specialties.php", values);
+                    var responseString = Encoding.UTF8.GetString(response);
+
+                    specialties = JsonConvert.DeserializeObject<List<Specialti>>(responseString);
+                }
+            }
+            catch
+            {
+
+            }
+            return specialties;
+        }
+
+        public static List<Group> GetGroups()
+        {
+            List<Group> groups = new List<Group>();
+            ServicePointManager.Expect100Continue = false;
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    var values = new NameValueCollection();
+                    var response = client.UploadValues("http://zschedule.gorlachov.com/libs/get_groups.php", values);
+                    var responseString = Encoding.UTF8.GetString(response);
+
+                    groups = JsonConvert.DeserializeObject<List<Group>>(responseString);
+                }
+            }
+            catch
+            {
+
+            }
+            return groups;
         }
     }
 }

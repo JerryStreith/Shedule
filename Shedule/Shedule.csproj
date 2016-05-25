@@ -60,7 +60,9 @@
     <Compile Include="Action.cs" />
     <Compile Include="Day.cs" />
     <Compile Include="Faculty.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="Ring.cs" />
+    <Compile Include="Specialti.cs" />
     <Compile Include="Sсhedule.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
