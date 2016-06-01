@@ -91,58 +91,65 @@ namespace Shedule
             TimeSpan now = DateTime.Now.TimeOfDay;
             TimeSpan begin = new TimeSpan(8, 45, 0);
             TimeSpan end = new TimeSpan(10, 5, 0);
-            if (GetTimeCompares(begin, now) >= 0 && GetTimeCompares(end, now) <= 0)
+            if (GetTimeCompares(begin, now) <= 0 && GetTimeCompares(end, now) >= 0)
             {
                 time1.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
                 pair1.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
+                return;
             }
 
             begin = new TimeSpan(10, 15, 0);
             end = new TimeSpan(11, 35, 0);
-            if (GetTimeCompares(begin, now) >= 0 && GetTimeCompares(end, now) <= 0)
+            if (GetTimeCompares(begin, now) <= 0 && GetTimeCompares(end, now) >= 0)
             {
                 time2.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
                 pair2.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
+                return;
             }
 
             begin = new TimeSpan(11, 45, 0);
             end = new TimeSpan(13, 05, 0);
-            if (GetTimeCompares(begin, now) >= 0 && GetTimeCompares(end, now) <= 0)
+            if (GetTimeCompares(begin, now) <= 0 && GetTimeCompares(end, now) >= 0)
             {
                 time3.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
                 pair3.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
+                return;
             }
 
             begin = new TimeSpan(13, 35, 0);
             end = new TimeSpan(14, 55, 0);
-            if (GetTimeCompares(begin, now) >= 0 && GetTimeCompares(end, now) <= 0)
+            if (GetTimeCompares(begin, now) <= 0 && GetTimeCompares(end, now) >= 0)
             {
                 time4.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
                 pair4.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
+                return;
             }
 
             begin = new TimeSpan(15, 05, 0);
             end = new TimeSpan(16, 25, 0);
-            if (GetTimeCompares(begin, now) >= 0 && GetTimeCompares(end, now) <= 0)
+            if (GetTimeCompares(begin, now) <= 0 && GetTimeCompares(end, now) >= 0)
             {
                 time5.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
                 pair5.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
+                return;
             }
 
             begin = new TimeSpan(16, 35, 0);
             end = new TimeSpan(17, 55, 0);
-            if (GetTimeCompares(begin, now) >= 0 && GetTimeCompares(end, now) <= 0)
+            if (GetTimeCompares(begin, now) <= 0 && GetTimeCompares(end, now) >= 0)
             {
                 time6.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
                 pair6.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
+                return;
             }
 
             begin = new TimeSpan(18, 05, 0);
             end = new TimeSpan(19, 25, 0);
-            if (GetTimeCompares(begin, now) >= 0 && GetTimeCompares(end, now) <= 0)
+            if (GetTimeCompares(begin, now) <= 0 && GetTimeCompares(end, now) >= 0)
             {
                 time7.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
                 pair7.Foreground = new SolidColorBrush(Color.FromRgb(160, 48, 6));
+                return;
             }
         }
 
@@ -179,8 +186,8 @@ namespace Shedule
 
         void BrushDays(Grid thisDay, Grid nextDay)
         {
-            SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(115, 238, 110));
-            SolidColorBrush brushNextDay = new SolidColorBrush(Color.FromRgb(238, 110, 115));
+            SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(255, 153, 0));
+            SolidColorBrush brushNextDay = new SolidColorBrush(Color.FromRgb(32, 178, 170));
 
             thisDay.Background = brush;
             nextDay.Background = brushNextDay;
